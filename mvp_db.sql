@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 25, 2025 at 06:19 AM
+-- Generation Time: Nov 25, 2025 at 03:04 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,8 +41,7 @@ CREATE TABLE `pembalap` (
 --
 
 INSERT INTO `pembalap` (`id`, `nama`, `negara`, `poinMusim`, `jumlahMenang`, `team_id`) VALUES
-(1, 'Lewis Hamilton', 'United Kingdom', 347, 11, 1),
-(2, 'Max Verstappen', 'Netherlands', 335, 10, 2),
+(2, 'Max', 'Indo', 300, 5, 4),
 (3, 'Valtteri Bottas', 'Finland', 203, 2, 1),
 (4, 'Sergio Perez', 'Mexico', 190, 1, 2),
 (5, 'Carlos Sainz', 'Spain', 150, 0, 3),
@@ -50,10 +49,7 @@ INSERT INTO `pembalap` (`id`, `nama`, `negara`, `poinMusim`, `jumlahMenang`, `te
 (7, 'Charles Leclerc', 'Monaco', 95, 0, 3),
 (8, 'Lando Norris', 'United Kingdom', 88, 0, 4),
 (9, 'Pierre Gasly', 'France', 75, 0, 5),
-(10, 'Fernando Alonso', 'Spain', 65, 0, 6),
-(11, 'Denis', 'Indonesia', 3, 1, 4),
-(12, 'Pipit', 'Indonesia', 5, 5, 1),
-(13, 'Lewis', 'United', 5, 1, 2);
+(10, 'Fernando Alonso', 'Spain', 65, 0, 6);
 
 -- --------------------------------------------------------
 
@@ -72,12 +68,13 @@ CREATE TABLE `team` (
 --
 
 INSERT INTO `team` (`id`, `namaTim`, `negaraAsal`) VALUES
-(1, 'Apacik', 'Indonesia woi'),
+(1, 'IndoKeren', 'Indonesia'),
 (2, 'Red Bull', 'Austria'),
 (3, 'Ferrari', 'Italy'),
 (4, 'McLaren', 'United Kingdom'),
 (5, 'AlphaTauri', 'Italy'),
-(6, 'Alpine', 'France');
+(6, 'Alpine', 'France'),
+(10, 'Manor Racing', 'Inggris');
 
 --
 -- Indexes for dumped tables
@@ -104,13 +101,13 @@ ALTER TABLE `team`
 -- AUTO_INCREMENT for table `pembalap`
 --
 ALTER TABLE `pembalap`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `team`
 --
 ALTER TABLE `team`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
