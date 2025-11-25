@@ -45,9 +45,9 @@ Struktur kode dipisahkan berdasarkan tanggung jawabnya masing-masing sesuai pola
 
 ### 1. Contracts (Interface)
 Mendefinisikan kontrak agar komunikasi antar komponen (Model, View, Presenter) terstandarisasi.
-* `contracts/KontrakModel.php`: Interface untuk operasi data Pembalap & Team.
-* `contracts/KontrakView.php`: Interface untuk tampilan Pembalap & Team.
-* `contracts/KontrakPresenter.php`: Interface untuk logika presentasi Pembalap & Team.
+* `models/KontrakModel.php`: Interface untuk operasi data Pembalap & Team.
+* `views/KontrakView.php`: Interface untuk tampilan Pembalap & Team.
+* `presenters/KontrakPresenter.php`: Interface untuk logika presentasi Pembalap & Team.
 
 ### 2. Models (Logika Data)
 Bertanggung jawab mengelola akses ke database.
@@ -117,8 +117,8 @@ Perantara yang mengambil data dari Model dan memberikannya ke View.
 
 <h2>🎮 Tampilan Program</h2>
 
-**(Silakan ganti bagian ini dengan screenshot aplikasi Anda)**
 
-<img width="1919" height="1047" alt="Tampilan Data Pembalap" src="[Link Gambar List Pembalap]" />
-<br>
-<img width="1919" height="1047" alt="Tampilan Data Team" src="[Link Gambar List Team]" />
+
+https://github.com/user-attachments/assets/fdeee5ee-3caa-4f7c-a587-4203b93fa020
+
+
