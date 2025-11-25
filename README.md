@@ -1,7 +1,7 @@
 <h1>🧾 Janji</h1>
-Saya Muhammad Maulana Adrian dengan NIM 2408647 mengerjakan Tugas Praktikum 9
-dalam mata kuliah Desain Pemrograman Berbasis Objek untuk keberkahanNya maka
-saya tidak melakukan kecurangan seperti yang telah dispesifikasikan. Aamiin
+Saya Muhammad Maulana Adrian dengan NIM 2408647 mengerjakan Tugas Praktikum 9<br>
+dalam mata kuliah Desain Pemrograman Berbasis Objek untuk keberkahanNya maka<br>
+saya tidak melakukan kecurangan seperti yang telah dispesifikasikan. Aamiin<br>
 
 ---
 
