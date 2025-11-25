@@ -1,4 +1,4 @@
-# 🧾 Janji
+<h1>🧾 Janji</h1>
 
 > Saya Muhammad Maulana Adrian dengan NIM 2408647 mengerjakan Tugas Praktikum 9
 > dalam mata kuliah Desain Pemrograman Berbasis Objek untuk keberkahanNya maka
@@ -6,89 +6,119 @@
 
 ---
 
-## 🌐 Deskripsi Proyek
+<h2>🌐 Deskripsi Proyek</h2>
 
-Proyek ini adalah implementasi aplikasi **CRUD (Create, Read, Update, Delete)** untuk mengelola data **Pembalap** dan **Tim Balap**. Proyek ini secara ketat menerapkan arsitektur **Model–View–Presenter (MVP)**, dengan fokus utama pada modul **Tim (Team)**, untuk mencapai **pemisahan tanggung jawab (Separation of Concerns)** yang jelas.
+Proyek ini adalah aplikasi web sederhana untuk memanajemen data **F1 (Formula 1)** yang terdiri dari data **Pembalap (Drivers)** dan **Tim (Teams)**. Aplikasi ini dibangun menggunakan bahasa pemrograman **PHP Native** dan database **MySQL**.
 
-**Poin Utama Implementasi MVP:**
+Secara arsitektur, proyek ini menerapkan pola **Model–View–Presenter (MVP)** untuk memisahkan logika bisnis (Model), tampilan antarmuka (View), dan logika presentasi (Presenter). Hal ini dilakukan untuk menjaga kode tetap rapi, terstruktur, dan mudah dikembangkan.
 
-* **Model** (`TabelTeam.php`): Bertanggung jawab atas semua operasi database CRUD.
-* **View** (`ViewTeam.php`): Bertanggung jawab atas tampilan UI (`skin_team.html`, `form_team.html`). **View tidak memiliki pengetahuan langsung tentang Model.**
-* **Presenter** (`PresenterTeam.php`): Bertindak sebagai **perantara** data dan logika kontrol antara View dan Model.
-* **Kontrak/Interface** (`KontrakModel.php`, `KontrakPresenter.php`, `KontrakView.php`): Digunakan untuk mendefinisikan interaksi yang wajib dipenuhi oleh setiap komponen, memastikan **decoupling** antar komponen.
-
----
-
-## 📚 Hubungan Antar Entitas (Relasi One-to-Many)
-
-Skema database menunjukkan relasi **One-to-Many** antara **Tim (`team`)** dan **Pembalap (`pembalap`)**.
-
-* Satu **Tim** (PK: `team.id`) dapat diacu oleh banyak **Pembalap** (FK: `pembalap.team_id`).
-* Pada operasi **DELETE** Tim, logika di **PresenterTeam** akan menampilkan *alert* jika Tim tersebut masih memiliki Pembalap yang terdaftar (mencegah pelanggaran *Foreign Key*).
-
-## 🖼️ Design Database
-
-<img width="793" height="250" alt="Skema database untuk tabel pembalap dan team dengan relasi foreign key" src="https://github.com/user-attachments/assets/941e7d0e-5a5f-4d37-97d8-f864147c2d2d" />
-
-> **Keterangan Tabel:**
-> 1. `pembalap`: Menyimpan data Pembalap (id, nama, negara, poinMusim, jumlahMenang). Memiliki Foreign Key `team_id`.
-> 2. `team`: Menyimpan data Tim Balap (id, namaTim, negaraAsal). Ini adalah tabel target untuk implementasi **CRUD MVP**.
+### Cakupan Proyek
+1.  **Manajemen Data Pembalap:** CRUD lengkap untuk data pembalap dengan fitur relasi ke Tim (dropdown).
+2.  **Manajemen Data Team:** CRUD lengkap untuk data tim balap yang menjadi referensi bagi data pembalap.
 
 ---
 
-## 🛠️ Persyaratan Sistem
+<h2>📚 Hubungan Antar Entitas</h2>
 
-* Web Server: **Apache** atau **Nginx**
-* Database: **MySQL / MariaDB**
-* Bahasa Pemrograman: **PHP** (Versi 7.4 ke atas disarankan)
+Aplikasi ini menggunakan relasi **One-to-Many** antara tabel `team` dan `pembalap`.
+
+* **1 Tim** dapat menaungi **Banyak Pembalap**.
+* **1 Pembalap** hanya dapat tergabung dalam **1 Tim**.
+* Relasi diimplementasikan melalui kolom `team_id` pada tabel `pembalap` yang merujuk ke `id` pada tabel `team`.
 
 ---
 
-## 📝 Desain Program & Struktur File (MVP)
+<h2>🖼️ Desain Database</h2>
 
-Aplikasi ini menggunakan struktur yang memisahkan tanggung jawab, dengan fokus utama pada pemisahan View dari Model menggunakan Presenter.
 
-| Folder/File | Peran Utama | Keterangan |
+
+| Tabel | Kolom | Keterangan |
 | :--- | :--- | :--- |
-| `index.php` | Entry Point & Router | Mengatur *routing* halaman (`page=team` atau `pembalap`) dan inisialisasi Presenter. |
-| `models/DB.php` | Koneksi Database | Class dasar untuk koneksi **PDO**. |
-| `models/TabelTeam.php` | **Model CRUD Tim** | Melakukan semua operasi CRUD ke tabel `team`. Mengimplementasikan `KontrakModelTeam`. |
-| `presenters/PresenterTeam.php` | **Presenter Tim (MVP)** | Implementasi `KontrakPresenterTeam`. Menerima *action* dari View, memanggil Model, dan mengarahkan hasil ke View. |
-| `views/ViewTeam.php` | **View Tim** | Implementasi `KontrakViewTeam`. Hanya bertanggung jawab pada logika rendering HTML/UI (`skin_team.html`, `form_team.html`). **Tidak ada logika CRUD atau pemanggilan Model di sini.** |
-| `contracts/KontrakModel.php` | Interface Model | Mendefinisikan kontrak untuk Model Pembalap dan Tim. |
-| `contracts/KontrakPresenter.php` | Interface Presenter | Mendefinisikan kontrak untuk Presenter Pembalap dan Tim. |
-| `contracts/KontrakView.php` | Interface View | Mendefinisikan kontrak untuk View Pembalap dan Tim. |
-| `template/skin_team.html` | Template View | HTML/UI untuk daftar Tim. |
-| `template/form_team.html` | Template View | HTML/UI untuk form Tambah/Ubah Tim. |
+| `team` | `id`, `namaTim`, `negaraAsal` | Tabel induk. Menyimpan informasi tim konstruktor. |
+| `pembalap` | `id`, `nama`, `negara`, `poinMusim`, `jumlahMenang`, `team_id` | Tabel anak. Kolom `team_id` adalah *Foreign Key*. |
 
 ---
 
-## 🚀 Fitur CRUD Tim Balap (MVP)
+<h2>📝 Struktur Program (Arsitektur MVP)</h2>
 
-Modul Tim Balap (`index.php?page=team`) mengimplementasikan fitur CRUD lengkap dengan arsitektur MVP:
+Struktur kode dipisahkan berdasarkan tanggung jawabnya masing-masing sesuai pola MVP.
 
-* ✅ **Read/List (Tabel)**: Menampilkan data Tim (`skin_team.html`).
-* ✅ **Create (Form)**: Menyediakan form untuk menambahkan Tim baru (`form_team.html`).
-* ✅ **Update (Form Prefill)**: Menyediakan form yang sudah terisi (*prefill*) data Tim yang akan diubah.
-* ✅ **Delete (Tombol)**: Menghapus data Tim. Dilengkapi *alert* di Presenter jika Tim memiliki Pembalap aktif (*Foreign Key constraint*).
+### 1. Contracts (Interface)
+Mendefinisikan kontrak agar komunikasi antar komponen (Model, View, Presenter) terstandarisasi.
+* `contracts/KontrakModel.php`: Interface untuk operasi data Pembalap & Team.
+* `contracts/KontrakView.php`: Interface untuk tampilan Pembalap & Team.
+* `contracts/KontrakPresenter.php`: Interface untuk logika presentasi Pembalap & Team.
+
+### 2. Models (Logika Data)
+Bertanggung jawab mengelola akses ke database.
+* `models/DB.php`: Wrapper untuk koneksi database menggunakan PDO.
+* `models/Pembalap.php`: Class representasi objek Pembalap.
+* `models/Team.php`: Class representasi objek Team.
+* `models/TabelPembalap.php`: Menangani Query CRUD tabel `pembalap`.
+* `models/TabelTeam.php`: Menangani Query CRUD tabel `team`.
+
+### 3. Views (Tampilan)
+Bertanggung jawab menampilkan data ke pengguna (HTML). **View tidak boleh akses database langsung.**
+* `views/ViewPembalap.php`: Mengurus tampilan list dan form pembalap.
+* `views/ViewTeam.php`: Mengurus tampilan list dan form team.
+* `template/skin.html`: Template HTML daftar pembalap.
+* `template/form.html`: Template HTML form tambah/edit pembalap.
+* `template/skin_team.html`: Template HTML daftar team.
+* `template/form_team.html`: Template HTML form tambah/edit team.
+
+### 4. Presenters (Penghubung)
+Perantara yang mengambil data dari Model dan memberikannya ke View.
+* `presenters/PresenterPembalap.php`: Mengatur logika halaman pembalap (termasuk mengambil data Team untuk dropdown).
+* `presenters/PresenterTeam.php`: Mengatur logika halaman team.
+
+### 5. Main
+* `index.php`: Entry point aplikasi yang mengatur routing halaman (`?page=team` atau default).
 
 ---
 
-## ⚙️ Cara Menjalankan
+<h2>🚀 Fitur Aplikasi</h2>
 
-1.  **Setup Database**: Impor file `mvp_db.sql` ke server MySQL/MariaDB lokal Anda.
-2.  **Konfigurasi PHP**: Sesuaikan kredensial database di file `index.php` pada bagian **Konfigurasi Database** (terutama `$dbPass`).
-3.  **Akses Aplikasi**: Tempatkan semua file proyek di folder root server web lokal Anda.
-4.  **Akses melalui browser**: Buka `http://localhost/[nama_folder]/index.php?page=team` untuk modul Tim (MVP) atau `http://localhost/[nama_folder]/index.php` untuk modul Pembalap.
+### A. Manajemen Pembalap (Racers)
+* **Read:** Menampilkan daftar pembalap beserta nama timnya (hasil JOIN tabel).
+* **Create:** Menambah pembalap baru dengan memilih Tim dari *dropdown* (data diambil dinamis dari tabel Team).
+* **Update:** Mengedit data pembalap (form terisi otomatis/prefill).
+* **Delete:** Menghapus data pembalap.
+
+### B. Manajemen Team (Teams)
+* **Read:** Menampilkan daftar tim yang terdaftar.
+* **Create:** Menambah tim baru.
+* **Update:** Mengedit informasi tim.
+* **Delete:** Menghapus tim.
+    * *Validasi:* Sistem akan mencegah/memberi alert jika menghapus Tim yang masih memiliki anggota Pembalap (menjaga integritas referensi).
 
 ---
 
-## 🎮 Tampilan Program & Demo
+<h2>⚙️ Cara Menjalankan</h2>
 
-**(Harap Sisipkan Tangkapan Layar Tampilan CRUD Tim Anda di sini)**
+1.  **Persiapan Database:**
+    * Buat database baru di MySQL (misal: `mvp_db`).
+    * Impor file `mvp_db.sql` yang disertakan dalam proyek ini.
 
-<img width="1919" height="1047" alt="Contoh tampilan list Tim Balap menggunakan skin_team.html" src="[Link Gambar Tampilan List CRUD Tim Anda]" />
+2.  **Konfigurasi Koneksi:**
+    * Buka file `index.php`.
+    * Sesuaikan konfigurasi database berikut dengan server Anda:
+        ```php
+        $dbHost = 'localhost';
+        $dbName = 'mvp_db';
+        $dbUser = 'root';
+        $dbPass = ''; // Sesuaikan password mysql Anda
+        ```
 
-**(Harap Sisipkan Video Demo Anda di sini)**
+3.  **Jalankan:**
+    * Buka browser dan akses: `http://localhost/folder_proyek/index.php`.
+    * Gunakan navigasi tab di atas tabel untuk berpindah antara menu **Data Pembalap** dan **Data Team**.
 
-[Video Demo Fitur CRUD Tim Balap (MVP)]
+---
+
+<h2>🎮 Tampilan Program</h2>
+
+**(Silakan ganti bagian ini dengan screenshot aplikasi Anda)**
+
+<img width="1919" height="1047" alt="Tampilan Data Pembalap" src="[Link Gambar List Pembalap]" />
+<br>
+<img width="1919" height="1047" alt="Tampilan Data Team" src="[Link Gambar List Team]" />
