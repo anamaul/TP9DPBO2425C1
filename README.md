@@ -1,15 +1,17 @@
-<h1>🧾 Janji</h1>
-Saya Muhammad Maulana Adrian dengan NIM 2408647 mengerjakan Tugas Praktikum 9<br>
-dalam mata kuliah Desain Pemrograman Berbasis Objek untuk keberkahanNya maka<br>
-saya tidak melakukan kecurangan seperti yang telah dispesifikasikan. Aamiin<br>
+# 🧾 Janji
+
+> Saya Muhammad Maulana Adrian dengan NIM 2408647 mengerjakan Tugas Praktikum 9
+> dalam mata kuliah Desain Pemrograman Berbasis Objek untuk keberkahanNya maka
+> saya tidak melakukan kecurangan seperti yang telah dispesifikasikan. Aamiin
 
 ---
 
-<h2>🌐 Deskripsi Proyek</h2>
+## 🌐 Deskripsi Proyek
 
 Proyek ini adalah implementasi aplikasi **CRUD (Create, Read, Update, Delete)** untuk mengelola data **Pembalap** dan **Tim Balap**. Proyek ini secara ketat menerapkan arsitektur **Model–View–Presenter (MVP)**, dengan fokus utama pada modul **Tim (Team)**, untuk mencapai **pemisahan tanggung jawab (Separation of Concerns)** yang jelas.
 
 **Poin Utama Implementasi MVP:**
+
 * **Model** (`TabelTeam.php`): Bertanggung jawab atas semua operasi database CRUD.
 * **View** (`ViewTeam.php`): Bertanggung jawab atas tampilan UI (`skin_team.html`, `form_team.html`). **View tidak memiliki pengetahuan langsung tentang Model.**
 * **Presenter** (`PresenterTeam.php`): Bertindak sebagai **perantara** data dan logika kontrol antara View dan Model.
@@ -17,24 +19,24 @@ Proyek ini adalah implementasi aplikasi **CRUD (Create, Read, Update, Delete)** 
 
 ---
 
-<h2>📚 Hubungan Antar Entitas (Relasi One-to-Many)</h2>
+## 📚 Hubungan Antar Entitas (Relasi One-to-Many)
 
 Skema database menunjukkan relasi **One-to-Many** antara **Tim (`team`)** dan **Pembalap (`pembalap`)**.
 
 * Satu **Tim** (PK: `team.id`) dapat diacu oleh banyak **Pembalap** (FK: `pembalap.team_id`).
 * Pada operasi **DELETE** Tim, logika di **PresenterTeam** akan menampilkan *alert* jika Tim tersebut masih memiliki Pembalap yang terdaftar (mencegah pelanggaran *Foreign Key*).
 
-<h2>🖼️ Design Database</h2>
+## 🖼️ Design Database
 
 <img width="793" height="250" alt="Skema database untuk tabel pembalap dan team dengan relasi foreign key" src="https://github.com/user-attachments/assets/941e7d0e-5a5f-4d37-97d8-f864147c2d2d" />
 
 > **Keterangan Tabel:**
-> 1.  `pembalap`: Menyimpan data Pembalap (id, nama, negara, poinMusim, jumlahMenang). Memiliki Foreign Key `team_id`.
-> 2.  `team`: Menyimpan data Tim Balap (id, namaTim, negaraAsal). Ini adalah tabel target untuk implementasi **CRUD MVP**.
+> 1. `pembalap`: Menyimpan data Pembalap (id, nama, negara, poinMusim, jumlahMenang). Memiliki Foreign Key `team_id`.
+> 2. `team`: Menyimpan data Tim Balap (id, namaTim, negaraAsal). Ini adalah tabel target untuk implementasi **CRUD MVP**.
 
 ---
 
-<h2>🛠️ Persyaratan Sistem</h2>
+## 🛠️ Persyaratan Sistem
 
 * Web Server: **Apache** atau **Nginx**
 * Database: **MySQL / MariaDB**
@@ -42,7 +44,7 @@ Skema database menunjukkan relasi **One-to-Many** antara **Tim (`team`)** dan **
 
 ---
 
-<h2>📝 Desain Program & Struktur File (MVP)</h2>
+## 📝 Desain Program & Struktur File (MVP)
 
 Aplikasi ini menggunakan struktur yang memisahkan tanggung jawab, dengan fokus utama pada pemisahan View dari Model menggunakan Presenter.
 
@@ -61,7 +63,7 @@ Aplikasi ini menggunakan struktur yang memisahkan tanggung jawab, dengan fokus u
 
 ---
 
-<h2>🚀 Fitur CRUD Tim Balap (MVP)</h2>
+## 🚀 Fitur CRUD Tim Balap (MVP)
 
 Modul Tim Balap (`index.php?page=team`) mengimplementasikan fitur CRUD lengkap dengan arsitektur MVP:
 
@@ -72,17 +74,16 @@ Modul Tim Balap (`index.php?page=team`) mengimplementasikan fitur CRUD lengkap d
 
 ---
 
-<h2>⚙️ Cara Menjalankan</h2>
-<ol>
-    <li>**Setup Database**: Impor file `mvp_db.sql` ke server MySQL/MariaDB lokal Anda.</li>
-    <li>**Konfigurasi PHP**: Sesuaikan kredensial database di file `index.php` pada bagian **Konfigurasi Database** (terutama `$dbPass`).</li>
-    <li>**Akses Aplikasi**: Tempatkan semua file proyek di folder root server web lokal Anda.</li>
-    <li>Akses melalui browser: `http://localhost/[nama_folder]/index.php?page=team` untuk modul Tim (MVP) atau `http://localhost/[nama_folder]/index.php` untuk modul Pembalap.</li>
-</ol>
+## ⚙️ Cara Menjalankan
+
+1.  **Setup Database**: Impor file `mvp_db.sql` ke server MySQL/MariaDB lokal Anda.
+2.  **Konfigurasi PHP**: Sesuaikan kredensial database di file `index.php` pada bagian **Konfigurasi Database** (terutama `$dbPass`).
+3.  **Akses Aplikasi**: Tempatkan semua file proyek di folder root server web lokal Anda.
+4.  **Akses melalui browser**: Buka `http://localhost/[nama_folder]/index.php?page=team` untuk modul Tim (MVP) atau `http://localhost/[nama_folder]/index.php` untuk modul Pembalap.
 
 ---
 
-<h2>🎮 Tampilan Program & Demo</h2>
+## 🎮 Tampilan Program & Demo
 
 **(Harap Sisipkan Tangkapan Layar Tampilan CRUD Tim Anda di sini)**
 
