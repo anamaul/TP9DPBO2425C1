@@ -1,19 +1,24 @@
 <?php
 
 include_once __DIR__ . "/KontrakPresenter.php";
+include_once __DIR__ . "/../models/KontrakModel.php"; // Pastikan path ini benar
+include_once __DIR__ . "/../views/KontrakView.php";   // Pastikan path ini benar
 include_once __DIR__ . "/../models/TabelPembalap.php";
 include_once __DIR__ . "/../models/TabelTeam.php";
-include_once __DIR__ . "/../models/Pembalap.php"; // Load Class Pembalap
+include_once __DIR__ . "/../models/Pembalap.php";
 include_once __DIR__ . "/../views/ViewPembalap.php";
 
 class PresenterPembalap implements KontrakPresenter
 {
     private $tabelPembalap;
-    private $tabelTeam;
     private $viewPembalap;
+    private $tabelTeam;
     private $listPembalap = [];
 
-    public function __construct($tabelPembalap, $viewPembalap, $tabelTeam)
+    // Menggunakan Type Hinting seperti di PresenterTeam
+    // Asumsi: TabelTeam mengimplementasikan KontrakModelTeam atau sejenisnya, 
+    // jika error, hilangkan type hint pada $tabelTeam
+    public function __construct(KontrakModel $tabelPembalap, KontrakView $viewPembalap, $tabelTeam)
     {
         $this->tabelPembalap = $tabelPembalap;
         $this->viewPembalap = $viewPembalap;
@@ -25,7 +30,6 @@ class PresenterPembalap implements KontrakPresenter
         $data = $this->tabelPembalap->getAllPembalap();
         $this->listPembalap = [];
         foreach ($data as $item) {
-            // 'tim' di sini diambil dari alias query (t.namaTim as tim)
             $pembalap = new Pembalap(
                 $item['id'],
                 $item['nama'],
@@ -37,9 +41,6 @@ class PresenterPembalap implements KontrakPresenter
             $this->listPembalap[] = $pembalap;
         }
     }
-
-    // ... sisa method sama persis dengan file aslimu ...
-    // Pastikan tampilkanPembalap, tampilkanFormPembalap, CRUD ada di sini
 
     public function tampilkanPembalap(): string
     {
@@ -53,7 +54,9 @@ class PresenterPembalap implements KontrakPresenter
         if ($id !== null) {
             $dataPembalap = $this->tabelPembalap->getPembalapById($id);
         }
+        // Ambil data team untuk dropdown
         $listTeam = $this->tabelTeam->getAllTeam();
+
         $paketData = [
             'pembalap' => $dataPembalap,
             'teams' => $listTeam
@@ -64,16 +67,28 @@ class PresenterPembalap implements KontrakPresenter
     public function tambahPembalap($nama, $tim, $negara, $poinMusim, $jumlahMenang): void
     {
         $this->tabelPembalap->addPembalap($nama, $tim, $negara, $poinMusim, $jumlahMenang);
+        // Bisa tambahkan header location jika ingin auto redirect di sini
     }
 
     public function ubahPembalap($id, $nama, $tim, $negara, $poinMusim, $jumlahMenang): void
     {
         $this->tabelPembalap->updatePembalap($id, $nama, $tim, $negara, $poinMusim, $jumlahMenang);
+        // Bisa tambahkan header location jika ingin auto redirect di sini
     }
 
+    // Disamakan dengan PresenterTeam: Cek keberhasilan hapus
     public function hapusPembalap($id): void
     {
-        $this->tabelPembalap->deletePembalap($id);
+        $berhasil = $this->tabelPembalap->deletePembalap($id);
+
+        if ($berhasil) {
+            header("Location: index.php"); // Kembali ke halaman utama
+        } else {
+            echo "<script>
+                alert('Gagal menghapus data pembalap!');
+                window.location.href = 'index.php';
+            </script>";
+        }
     }
 }
 ?>

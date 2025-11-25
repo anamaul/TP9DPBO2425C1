@@ -1,14 +1,16 @@
 <?php
+include_once(__DIR__ . "/KontrakPresenter.php"); // Load Interface
 include_once(__DIR__ . "/../models/TabelTeam.php");
 include_once(__DIR__ . "/../models/Team.php");
 include_once(__DIR__ . "/../views/ViewTeam.php");
 
-class PresenterTeam
+class PresenterTeam implements KontrakPresenterTeam
 {
   private $tabelTeam;
   private $viewTeam;
 
-  public function __construct($tabelTeam, $viewTeam)
+  // Type Hinting untuk memaksa Contract
+  public function __construct(KontrakModelTeam $tabelTeam, KontrakViewTeam $viewTeam)
   {
     $this->tabelTeam = $tabelTeam;
     $this->viewTeam = $viewTeam;
@@ -45,18 +47,16 @@ class PresenterTeam
 
   public function hapusTeam($id)
   {
-    // Panggil method delete di model yang sekarang mengembalikan true/false
     $berhasil = $this->tabelTeam->deleteTeam($id);
 
     if ($berhasil) {
-      // Jika berhasil, redirect seperti biasa
       header("Location: index.php?page=team");
     } else {
-      // Jika gagal (karena masih dipakai pembalap), tampilkan Alert
+      // Script alert sederhana lalu redirect
       echo "<script>
-                alert('Gagal menghapus! Team ini sedang digunakan oleh Pembalap. Silakan hapus atau pindahkan pembalapnya terlebih dahulu.');
-                window.location.href = 'index.php?page=team';
-            </script>";
+            alert('Gagal menghapus! Team ini sedang digunakan oleh Pembalap.');
+            window.location.href = 'index.php?page=team';
+        </script>";
     }
   }
 }

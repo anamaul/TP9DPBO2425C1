@@ -1,7 +1,8 @@
 <?php
 include_once __DIR__ . "/../models/Team.php";
+include_once __DIR__ . "/KontrakView.php"; // Load Interface
 
-class ViewTeam
+class ViewTeam implements KontrakViewTeam
 {
   public function tampilTeam($listTeam)
   {
@@ -49,23 +50,14 @@ class ViewTeam
 
     $template = file_get_contents($templatePath);
 
-    // --- PERBAIKAN DI SINI ---
-
-    // 1. Action (Cari name="action" value="add_team")
+    // Replace Values
     $template = str_replace('name="action" value="add_team"', 'name="action" value="' . $actionVal . '"', $template);
-
-    // 2. ID (Cari name="id" value="")
     $template = str_replace('name="id" value=""', 'name="id" value="' . $idVal . '"', $template);
 
-    // 3. Nama Tim
-    $searchNama = 'placeholder="Contoh: Red Bull Racing" required value=""';
-    $replaceNama = 'placeholder="Contoh: Red Bull Racing" required value="' . $namaVal . '"';
-    $template = str_replace($searchNama, $replaceNama, $template);
-
-    // 4. Negara Asal
-    $searchNegara = 'placeholder="Contoh: Austria" required value=""';
-    $replaceNegara = 'placeholder="Contoh: Austria" required value="' . $negaraVal . '"';
-    $template = str_replace($searchNegara, $replaceNegara, $template);
+    // Replace logic agar value masuk ke input
+    $template = str_replace('value=""', '', $template); // Bersihkan value kosong default dulu jika ada konflik
+    $template = str_replace('name="namaTim"', 'name="namaTim" value="' . $namaVal . '"', $template);
+    $template = str_replace('name="negaraAsal"', 'name="negaraAsal" value="' . $negaraVal . '"', $template);
 
     return $template;
   }

@@ -37,11 +37,6 @@
         margin: 0 0 8px;
         font-size: 18px;
       }
-      p.lead {
-        margin: 0 0 16px;
-        color: var(--muted);
-        font-size: 13px;
-      }
 
       form {
         display: grid;
@@ -54,7 +49,6 @@
         color: var(--muted);
         margin-bottom: 6px;
       }
-      /* Update CSS: select ikut di-styling */
       input[type="text"],
       input[type="number"],
       select {
@@ -82,20 +76,17 @@
         border: 1px solid transparent;
         font-size: 14px;
         cursor: pointer;
+        text-decoration: none;
       }
       .btn-primary {
         background: var(--accent);
         color: #fff;
+        border: none;
       }
       .btn-muted {
         background: transparent;
         border: 1px solid var(--border);
         color: var(--muted);
-      }
-      .btn-danger {
-        background: transparent;
-        color: var(--danger);
-        border: 1px solid transparent;
       }
 
       @media (max-width: 640px) {
@@ -113,15 +104,9 @@
       <div class="card">
         <h1>Form Pembalap</h1>
 
-        <form method="post" action="index.php" novalidate data-form="pembalap">
-          <input
-            type="hidden"
-            name="action"
-            value="add"
-            id="pembalap-action"
-            data-field
-          />
-          <input type="hidden" name="id" value="" id="pembalap-id" data-field />
+        <form method="post" action="index.php" novalidate>
+          <input type="hidden" name="action" value="add" id="action" />
+          <input type="hidden" name="id" value="" id="id" />
 
           <div>
             <label for="nama">Nama</label>
@@ -131,13 +116,15 @@
               type="text"
               placeholder="Nama pembalap"
               required
-              data-field
+              value=""
             />
           </div>
 
           <div>
             <label for="tim">Tim</label>
-            <select id="tim" name="tim" required data-field></select>
+            <select id="tim" name="tim" required>
+              <option value="">-- Pilih Tim --</option>
+            </select>
           </div>
 
           <div>
@@ -147,7 +134,7 @@
               name="negara"
               type="text"
               placeholder="Negara (mis. Indonesia)"
-              data-field
+              value=""
             />
           </div>
 
@@ -160,7 +147,7 @@
               min="0"
               step="1"
               placeholder="0"
-              data-field
+              value=""
             />
           </div>
 
@@ -173,7 +160,7 @@
               min="0"
               step="1"
               placeholder="0"
-              data-field
+              value=""
             />
           </div>
 
@@ -200,7 +187,6 @@
             return false;
           }
 
-          // Validasi tambahan untuk Tim
           if (!tim.value) {
             alert("Silakan pilih tim");
             tim.focus();

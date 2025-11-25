@@ -6,4 +6,9 @@ interface KontrakView
     public function tampilFormPembalap($data = null): string;
 }
 
+interface KontrakViewTeam
+{
+    public function tampilTeam($listTeam);
+    public function tampilFormTeam($data = null);
+}
 ?>

@@ -1,7 +1,7 @@
 <?php
 
 include_once __DIR__ . "/DB.php";
-include_once __DIR__ . "/../models/KontrakModel.php";
+include_once __DIR__ . "/KontrakModel.php";
 
 class TabelPembalap extends DB implements KontrakModel
 {
@@ -10,10 +10,9 @@ class TabelPembalap extends DB implements KontrakModel
         parent::__construct($host, $db_name, $username, $password);
     }
 
-    // READ (List): Join agar mendapatkan nama tim, bukan cuma ID
+    // READ (List)
     public function getAllPembalap(): array
     {
-        // Kita ambil t.namaTim dan di-alias sebagai 'tim' untuk dimasukkan ke Objek Pembalap
         $query = "SELECT p.*, t.namaTim as tim 
                   FROM pembalap p 
                   LEFT JOIN team t ON p.team_id = t.id 
@@ -22,7 +21,7 @@ class TabelPembalap extends DB implements KontrakModel
         return $this->getAllResult();
     }
 
-    // READ (Single): Mengambil data mentah (termasuk team_id) untuk form Edit
+    // READ (Single)
     public function getPembalapById($id): ?array
     {
         $query = "SELECT * FROM pembalap WHERE id = :id";
@@ -34,7 +33,6 @@ class TabelPembalap extends DB implements KontrakModel
     // CREATE
     public function addPembalap($nama, $tim, $negara, $poinMusim, $jumlahMenang): void
     {
-        // $tim di sini menerima Value dari Dropdown (yaitu team_id)
         $query = "INSERT INTO pembalap (nama, team_id, negara, poinMusim, jumlahMenang) 
                   VALUES (:nama, :team_id, :negara, :poin, :menang)";
 
@@ -72,11 +70,17 @@ class TabelPembalap extends DB implements KontrakModel
         $this->executeQuery($query, $params);
     }
 
-    // DELETE
-    public function deletePembalap($id): void
+    // DELETE (Disamakan dengan TabelTeam: return bool & try-catch)
+    public function deletePembalap($id): bool
     {
-        $query = "DELETE FROM pembalap WHERE id = :id";
-        $this->executeQuery($query, [':id' => $id]);
+        try {
+            $query = "DELETE FROM pembalap WHERE id = :id";
+            $this->executeQuery($query, [':id' => $id]);
+            return true;
+        } catch (Exception $e) {
+            // Gagal jika ada kendala database
+            return false;
+        }
     }
 }
 ?>
