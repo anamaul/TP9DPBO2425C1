@@ -1,21 +1,20 @@
 <?php
-include_once(__DIR__ . "/KontrakPresenter.php"); // Load Interface
+include_once(__DIR__ . "/KontrakPresenter.php");
 include_once(__DIR__ . "/../models/TabelTeam.php");
 include_once(__DIR__ . "/../models/Team.php");
 include_once(__DIR__ . "/../views/ViewTeam.php");
-
+// Pastikan semua file yang diperlukan di-include
 class PresenterTeam implements KontrakPresenterTeam
-{
+{//Tim
   private $tabelTeam;
   private $viewTeam;
-
-  // Type Hinting untuk memaksa Contract
+// Inisialisasi dengan model dan view yang sesuai
   public function __construct(KontrakModelTeam $tabelTeam, KontrakViewTeam $viewTeam)
   {
     $this->tabelTeam = $tabelTeam;
     $this->viewTeam = $viewTeam;
   }
-
+// Implementasi metode dari KontrakPresenterTeam
   public function tampilkanTeam()
   {
     $data = $this->tabelTeam->getAllTeam();
@@ -25,7 +24,7 @@ class PresenterTeam implements KontrakPresenterTeam
     }
     return $this->viewTeam->tampilTeam($listTeam);
   }
-
+// Menampilkan form tambah/ubah team
   public function tampilkanFormTeam($id = null)
   {
     $data = null;
@@ -34,17 +33,17 @@ class PresenterTeam implements KontrakPresenterTeam
     }
     return $this->viewTeam->tampilFormTeam($data);
   }
-
+// Menambahkan team baru
   public function tambahTeam($nama, $negara)
   {
     $this->tabelTeam->addTeam($nama, $negara);
   }
-
+// Mengubah data team
   public function ubahTeam($id, $nama, $negara)
   {
     $this->tabelTeam->updateTeam($id, $nama, $negara);
   }
-
+// Menghapus team
   public function hapusTeam($id)
   {
     $berhasil = $this->tabelTeam->deleteTeam($id);

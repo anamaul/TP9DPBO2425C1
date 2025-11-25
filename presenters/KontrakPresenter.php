@@ -1,6 +1,6 @@
 <?php
 
-interface KontrakPresenter
+interface KontrakPresenter//Pembalap
 {
     // --- PEMBALAP ---
     public function tampilkanPembalap(): string;
@@ -10,7 +10,7 @@ interface KontrakPresenter
     public function hapusPembalap($id): void;
 }
 
-interface KontrakPresenterTeam
+interface KontrakPresenterTeam//Tim
 {
     // --- TEAM ---
     public function tampilkanTeam();

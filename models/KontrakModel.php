@@ -1,6 +1,6 @@
 <?php
 
-interface KontrakModel
+interface KontrakModel//Pembalap
 {
     // --- PEMBALAP ---
     public function getAllPembalap(): array;
@@ -10,13 +10,13 @@ interface KontrakModel
     public function deletePembalap($id): bool;
 }
 
-interface KontrakModelTeam
+interface KontrakModelTeam//Tim
 {
     // --- TEAM ---
     public function getAllTeam(): array;
     public function getTeamById($id): ?array;
     public function addTeam($namaTim, $negaraAsal): void;
     public function updateTeam($id, $namaTim, $negaraAsal): void;
-    public function deleteTeam($id): bool; // Return bool untuk cek constraint
+    public function deleteTeam($id): bool; 
 }
 ?>

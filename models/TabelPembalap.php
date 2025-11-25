@@ -1,10 +1,10 @@
 <?php
 
-include_once __DIR__ . "/DB.php";
-include_once __DIR__ . "/KontrakModel.php";
+include_once __DIR__ . "/DB.php";// Mengimpor kelas DB untuk koneksi database
+include_once __DIR__ . "/KontrakModel.php";// Mengimpor interface KontrakModel
 
 class TabelPembalap extends DB implements KontrakModel
-{
+{// Model untuk tabel pembalap yang mengimplementasikan KontrakModel
     public function __construct($host, $db_name, $username, $password)
     {
         parent::__construct($host, $db_name, $username, $password);

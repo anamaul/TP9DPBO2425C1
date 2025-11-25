@@ -1,11 +1,11 @@
 <?php
 include_once __DIR__ . "/../models/Team.php";
-include_once __DIR__ . "/KontrakView.php"; // Load Interface
-
+include_once __DIR__ . "/KontrakView.php"; 
+// Pastikan semua file yang diperlukan di-include
 class ViewTeam implements KontrakViewTeam
-{
+{//Tim
   public function tampilTeam($listTeam)
-  {
+  {//Memanggil view tampil team
     $tbody = '';
     foreach ($listTeam as $team) {
       $tbody .= '<tr>';
@@ -18,18 +18,18 @@ class ViewTeam implements KontrakViewTeam
                        </td>';
       $tbody .= '</tr>';
     }
-
+// Load Template
     $templatePath = __DIR__ . '/../template/skin_team.html';
-    if (file_exists($templatePath)) {
+    if (file_exists($templatePath)) {//jika file ada
       $template = file_get_contents($templatePath);
       $template = str_replace('<tbody></tbody>', '<tbody>' . $tbody . '</tbody>', $template);
       // Update Total
       $template = str_replace('Total Data Team', 'Total Data Team: ' . count($listTeam), $template);
-      return $template;
+      return $template;//kembalikan template yang sudah diisi
     }
-    return "Template skin_team.html hilang!";
+    return "Template skin_team.html hilang!";//kembalikan pesan error
   }
-
+// Memanggil view form team
   public function tampilFormTeam($data = null)
   {
     $idVal = '';
@@ -37,18 +37,18 @@ class ViewTeam implements KontrakViewTeam
     $negaraVal = '';
     $actionVal = 'add_team';
 
-    if ($data) {
+    if ($data) {//jika data ada (edit)
       $actionVal = 'edit_team';
       $idVal = $data['id'];
       $namaVal = $data['namaTim'];
       $negaraVal = $data['negaraAsal'];
     }
-
+// Load Template
     $templatePath = __DIR__ . '/../template/form_team.html';
-    if (!file_exists($templatePath))
-      return "Template form_team.html hilang!";
+    if (!file_exists($templatePath))//jika file tidak ada
+      return "Template form_team.html hilang!";//kembalikan pesan error
 
-    $template = file_get_contents($templatePath);
+    $template = file_get_contents($templatePath);//baca isi file template
 
     // Replace Values
     $template = str_replace('name="action" value="add_team"', 'name="action" value="' . $actionVal . '"', $template);
@@ -59,7 +59,7 @@ class ViewTeam implements KontrakViewTeam
     $template = str_replace('name="namaTim"', 'name="namaTim" value="' . $namaVal . '"', $template);
     $template = str_replace('name="negaraAsal"', 'name="negaraAsal" value="' . $negaraVal . '"', $template);
 
-    return $template;
+    return $template;//kembalikan template yang sudah diisi
   }
 }
 ?>

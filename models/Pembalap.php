@@ -1,6 +1,6 @@
 <?php
 
-class Pembalap
+class Pembalap//Model Pembalap
 {
     private $id;
     private $nama;
@@ -8,7 +8,7 @@ class Pembalap
     private $negara;
     private $poinMusim;
     private $jumlahMenang;
-
+// Constructor
     public function __construct($id, $nama, $tim, $negara, $poinMusim, $jumlahMenang)
     {
         $this->id = $id;
@@ -18,7 +18,7 @@ class Pembalap
         $this->poinMusim = $poinMusim;
         $this->jumlahMenang = $jumlahMenang;
     }
-
+// Getter methods
     public function getId()
     {
         return $this->id;

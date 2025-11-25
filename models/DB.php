@@ -1,6 +1,6 @@
 <?php
 
-class DB{
+class DB{// Kelas untuk mengelola koneksi database dan eksekusi query
 
     private $host = "localhost";
     private $db_name = "";

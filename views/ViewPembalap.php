@@ -2,10 +2,10 @@
 
 include_once __DIR__ . "/../models/Pembalap.php";
 include_once __DIR__ . "/KontrakView.php";
-
+// Pastikan semua file yang diperlukan di-include
 class ViewPembalap implements KontrakView
-{
-    public function tampilPembalap($listPembalap): string
+{//Pembalap
+    public function tampilPembalap($listPembalap): string//Memanggil view tampil pembalap
     {
         $tbody = '';
         foreach ($listPembalap as $pembalap) {
@@ -37,7 +37,7 @@ class ViewPembalap implements KontrakView
     }
 
     public function tampilFormPembalap($data = null): string
-    {
+    {//Memanggil view form pembalap
         $pembalap = $data['pembalap'] ?? null;
         $teams = $data['teams'] ?? [];
 
@@ -66,12 +66,12 @@ class ViewPembalap implements KontrakView
             $selected = ($team['id'] == $teamIdVal) ? 'selected' : '';
             $teamOptions .= '<option value="' . $team['id'] . '" ' . $selected . '>' . htmlspecialchars($team['namaTim']) . '</option>';
         }
-
+// Load Template
         $templatePath = __DIR__ . '/../template/form.html';
-        if (!file_exists($templatePath))
-            return "Template form.html hilang!";
+        if (!file_exists($templatePath))//jika file tidak ada
+            return "Template form.html hilang!";//kembalikan pesan error
 
-        $html = file_get_contents($templatePath);
+        $html = file_get_contents($templatePath);//baca isi file template
 
         // Replace Values seperti ViewTeam
         $html = str_replace('name="action" value="add"', 'name="action" value="' . $actionVal . '"', $html);
@@ -89,7 +89,7 @@ class ViewPembalap implements KontrakView
         // Inject Dropdown
         $html = str_replace('</select>', $teamOptions . '</select>', $html);
 
-        return $html;
+        return $html;//kembalikan html hasil render
     }
 }
 ?>
